@@ -51,3 +51,27 @@ CREATE OR REPLACE PACKAGE BODY auth_pkg AS
 END;
 /
 
+#developer-4 code
+CREATE OR REPLACE PACKAGE txn_pkg AS
+   PROCEDURE transfer_money(p_from NUMBER, p_to NUMBER, p_amt NUMBER);
+END;
+/
+
+CREATE OR REPLACE PACKAGE BODY txn_pkg AS
+
+   PROCEDURE transfer_money(p_from NUMBER, p_to NUMBER, p_amt NUMBER) IS
+   BEGIN
+      UPDATE accounts SET balance = balance - p_amt WHERE account_id = p_from;
+      UPDATE accounts SET balance = balance + p_amt WHERE account_id = p_to;
+
+      COMMIT;
+
+   EXCEPTION
+      WHEN OTHERS THEN
+         ROLLBACK;
+         DBMS_OUTPUT.PUT_LINE('Transaction Failed');
+   END;
+
+END;
+/
+
