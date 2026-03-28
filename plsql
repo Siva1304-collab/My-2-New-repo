@@ -24,7 +24,7 @@ CREATE OR REPLACE PACKAGE BODY auth_pkg AS
 
 END;
 /
-#developer-3 code
+#developer-4 code
 CREATE OR REPLACE PACKAGE auth_pkg AS
    FUNCTION login(p_user VARCHAR2, p_pass VARCHAR2) RETURN VARCHAR2;
 END;
@@ -51,7 +51,7 @@ CREATE OR REPLACE PACKAGE BODY auth_pkg AS
 END;
 /
 
-#developer-4 code
+#developer-5 code
 CREATE OR REPLACE PACKAGE txn_pkg AS
    PROCEDURE transfer_money(p_from NUMBER, p_to NUMBER, p_amt NUMBER);
 END;
@@ -75,3 +75,20 @@ CREATE OR REPLACE PACKAGE BODY txn_pkg AS
 END;
 /
 
+# Developer-6 code
+CREATE OR REPLACE PACKAGE job_pkg AS
+   PROCEDURE run_daily_job;
+END;
+/
+
+CREATE OR REPLACE PACKAGE BODY job_pkg AS
+
+   PROCEDURE run_daily_job IS
+   BEGIN
+      DELETE FROM temp_data;
+      INSERT INTO temp_data
+      SELECT * FROM main_data WHERE created_date = SYSDATE;
+   END;
+
+END;
+/
