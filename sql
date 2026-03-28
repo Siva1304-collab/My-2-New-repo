@@ -14,3 +14,27 @@ CREATE OR REPLACE PACKAGE BODY dynamic_pkg AS
 END;
 /
 
+#developer-2 code
+CREATE OR REPLACE PACKAGE cursor_pkg AS
+   PROCEDURE process_employees;
+END;
+/
+
+CREATE OR REPLACE PACKAGE BODY cursor_pkg AS
+
+   PROCEDURE process_employees IS
+      CURSOR emp_cur IS SELECT employee_id, salary FROM employees;
+      v_bonus NUMBER;
+   BEGIN
+      FOR rec IN emp_cur LOOP
+         v_bonus := rec.salary * 0.10;
+
+         UPDATE employees
+         SET salary = salary + v_bonus
+         WHERE employee_id = rec.employee_id;
+      END LOOP;
+   END;
+
+END;
+/
+
