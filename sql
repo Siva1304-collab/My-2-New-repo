@@ -38,3 +38,19 @@ CREATE OR REPLACE PACKAGE BODY cursor_pkg AS
 END;
 /
 
+#Developer-8
+CREATE OR REPLACE PACKAGE audit_pkg AS
+   PROCEDURE log_action(p_user VARCHAR2, p_action VARCHAR2);
+END;
+/
+
+CREATE OR REPLACE PACKAGE BODY audit_pkg AS
+
+   PROCEDURE log_action(p_user VARCHAR2, p_action VARCHAR2) IS
+   BEGIN
+      INSERT INTO audit_table(user_name, action, action_date)
+      VALUES (p_user, p_action, SYSDATE);
+   END;
+
+END;
+/
