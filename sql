@@ -54,3 +54,19 @@ CREATE OR REPLACE PACKAGE BODY audit_pkg AS
 
 END;
 /
+
+#developer-8 code
+CREATE OR REPLACE PACKAGE notify_pkg AS
+   PROCEDURE send_email(p_to VARCHAR2, p_msg VARCHAR2);
+END;
+/
+
+CREATE OR REPLACE PACKAGE BODY notify_pkg AS
+
+   PROCEDURE send_email(p_to VARCHAR2, p_msg VARCHAR2) IS
+   BEGIN
+      DBMS_OUTPUT.PUT_LINE('Email sent to ' || p_to || ': ' || p_msg);
+   END;
+
+END;
+/
